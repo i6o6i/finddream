@@ -5,10 +5,10 @@ using UnityEngine;
 public class PlayerController : KinematicObject
 {
     public float maxSpeed = 6;
-    public float forcestep =1;
+    public float forcestep =0.05F;
     public float maxforce=6;
-    public int jumpycoef =1;
-    public int jumpxcoef =1;
+    public float jumpycoef =1;
+    public float jumpxcoef =2;
     public bool controlEnabled = true;
     SpriteRenderer spriteRenderer;
     public bool faceright=true;
@@ -69,7 +69,10 @@ public class PlayerController : KinematicObject
 		if(m_isheld)
 		{
 		    if(jumpforce < maxforce)
+		    {
+			Debug.Log("PlayerController.UpdateJumpState() JumpState.PrepareTojump jumpforce = "+jumpforce+"forcestep = "+forcestep);
 			jumpforce += forcestep;
+		    }
 		    //Debug.Log("PlayerController.UpdateJumpState() JumpState.PrepareTojump jumpforce = "+jumpforce);
 		} else {
 		    if(faceright)
@@ -104,8 +107,8 @@ public class PlayerController : KinematicObject
 	
 	if(velocity.x !=0)
 	{
-	    Debug.Log("PlayerController.ComputeVelocity() m_jumpstate = " +m_jumpstate);
-	    Debug.Log("PlayerController.ComputeVelocity() velocity.x = "+velocity.x);
+	    //Debug.Log("PlayerController.ComputeVelocity() m_jumpstate = " +m_jumpstate);
+	    //Debug.Log("PlayerController.ComputeVelocity() velocity.x = "+velocity.x);
 	}
 	animator.SetFloat("velocityX", Mathf.Abs(velocity.x));
 	//animator.SetFloat("grouded", Mathf.Abs(velocity.x));

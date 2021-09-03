@@ -292,10 +292,10 @@ MonoBehaviour:
   velocity: {x: 0, y: 0}
   IsGrounded: 0
   maxSpeed: 6
-  forcestep: 1
+  forcestep: 0.05
   maxforce: 6
   jumpycoef: 1
-  jumpxcoef: 1
+  jumpxcoef: 2
   controlEnabled: 1
   faceright: 1
   jumpforce: 0

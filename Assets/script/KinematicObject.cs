@@ -104,8 +104,8 @@ public class KinematicObject : MonoBehaviour
 	else
 	    velocity += Physics2D.gravity * Time.deltaTime;
 
-	if(velocity.x > 1)
-	    Debug.Log("KinematicObject.FixedUpdate() velocity.x = "+velocity.x+", velocity.y ="+velocity.y);
+	//if(velocity.x > 1)
+	    //Debug.Log("KinematicObject.FixedUpdate() velocity.x = "+velocity.x+", velocity.y ="+velocity.y);
 
 	IsGrounded = false;
 
