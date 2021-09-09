@@ -10,7 +10,7 @@ public class KinematicObject : MonoBehaviour
     /// <summary>
     /// The minimum normal (dot product) considered suitable for the entity sit on.
     /// </summary>
-    public float minGroundNormalY = .65f;
+    public float minGroundNormalY = .9239f;
 
     /// <summary>
     /// A custom gravity coefficient applied to this entity.
@@ -104,22 +104,10 @@ public class KinematicObject : MonoBehaviour
 	else
 	    velocity += Physics2D.gravity * Time.deltaTime;
 
-	//if(velocity.x > 1)
-	    //Debug.Log("KinematicObject.FixedUpdate() velocity.x = "+velocity.x+", velocity.y ="+velocity.y);
 
-	IsGrounded = false;
-
-	var deltaPosition = velocity * Time.deltaTime;
-
-	var moveAlongGround = new Vector2(groundNormal.y, -groundNormal.x);
-
-	var move = moveAlongGround * deltaPosition.x;
+	var move = velocity * Time.deltaTime;
 
 	PerformMovement(move, false);
-
-	move = Vector2.up * deltaPosition.y;
-
-	PerformMovement(move, true);
 
     }
 
@@ -131,22 +119,15 @@ public class KinematicObject : MonoBehaviour
 	{
 	    //check if we hit anything in current direction of travel
 	    var count = body.Cast(move, contactFilter, hitBuffer, distance + shellRadius);
-	    //Debug.Log("KinematicObject.PerformMovement count = "+count);
 	    for (var i = 0; i < count; i++)
 	    {
 		var currentNormal = hitBuffer[i].normal;
-		//Debug.Log("hitBuffer ["+i+"].normal.x = "+currentNormal.x+" hitBuffer ["+i+"].normal.y = "+currentNormal.y);
 
 		//is this surface flat enough to land on?
 		if (currentNormal.y > minGroundNormalY)
 		{
 		    IsGrounded = true;
-		    // if moving up, change the groundNormal to new surface normal.
-		    if (yMovement)
-		    {
-			groundNormal = currentNormal;
-			currentNormal.x = 0;
-		    }
+		    groundNormal = currentNormal;
 		}
 		if (IsGrounded)
 		{
@@ -161,9 +142,12 @@ public class KinematicObject : MonoBehaviour
 		else
 		{
 		    //We are airborne, but hit something, so cancel vertical up and horizontal velocity.
-		    velocity.x *= 0;
-		    Debug.Log("KinematicObject.PerformMovement() velocity.x = 0");
-		    velocity.y = Mathf.Min(velocity.y, 0);
+		    if(!yMovement)
+		    {
+			velocity = velocity-2* velocity* currentNormal;
+		    }
+		    //velocity.x *= 0;
+		    //velocity.y = Mathf.Min(velocity.y, 0);
 		}
 		//remove shellDistance from actual move distance.
 		var modifiedDistance = hitBuffer[i].distance - shellRadius;

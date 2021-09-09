@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 12c188bfa5233ab4aac174c1bd773a0a
+guid: 5b30e13ff512799449601f4bc6be5478
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7482667652216324306
-    second: Square
+      213: 6586461156150141773
+    second: diamond_0
+  - first:
+      213: 4861735530759549060
+    second: diamond_1
+  - first:
+      213: -3478307910641300536
+    second: diamond_2
+  - first:
+      213: -2559489968368152086
+    second: diamond_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -36,8 +45,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 1
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -50,11 +59,11 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 256
-  spriteBorder: {x: 4, y: 4, z: 4, w: 4}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: 0
+  spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -91,19 +100,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: iPhone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -118,7 +115,49 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Square
+      name: diamond_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d43ec33668fc76b50800000000000000
+      internalID: 6586461156150141773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: diamond_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48071d6e4ba587340800000000000000
+      internalID: 4861735530759549060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: diamond_2
       rect:
         serializedVersion: 2
         x: 0
@@ -126,24 +165,41 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2d009a6b596c7d760800000000000000
-      internalID: 7482667652216324306
+      spriteID: 8cb4bc652619abfc0800000000000000
+      internalID: -3478307910641300536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: diamond_3
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae19d3d3f6dda7cd0800000000000000
+      internalID: -2559489968368152086
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
-    physicsShape:
-    - - {x: -128, y: 128}
-      - {x: -128, y: -128}
-      - {x: 128, y: -128}
-      - {x: 128, y: 128}
+    physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
     internalID: 0

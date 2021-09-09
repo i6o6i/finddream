@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Square
+  m_Name: diamond_0
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 7482667652216324306, guid: 12c188bfa5233ab4aac174c1bd773a0a, type: 3}
+  m_Sprite: {fileID: 6586461156150141773, guid: 5b30e13ff512799449601f4bc6be5478, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
