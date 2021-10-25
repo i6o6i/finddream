@@ -63,10 +63,21 @@ namespace Platformer.Mechanics {
 	    switch(m_jumpstate)
 	    {
 		case JumpState.Landed:
+		    if(move.x > 0.01f)
+			faceright = true;
+		    else if(move.x < -0.01f)
+			faceright = false;
+		    spriteRenderer.flipX = !faceright;
+		    animator.SetFloat("velocityX", Mathf.Abs(velocity.x));
+		    velocity.x = move.x * model.maxSpeed;
 		    if(m_isheld)
 		    {
 			//Debug.Log("PlayerController.UpdateJumpState() JumpState.PrepareTojump m_jumpstate change to PrepareTojump");
 			m_jumpstate = JumpState.PrepareTojump;
+		    }
+		    if(velocity.y<0)
+		    {
+			m_jumpstate = JumpState.InFlight;
 		    }
 		    break;
 		case JumpState.PrepareTojump:
@@ -75,26 +86,31 @@ namespace Platformer.Mechanics {
 		    {
 			if(jumpforce < model.maxforce)
 			{
-			    Debug.Log("PlayerController.UpdateJumpState() JumpState.PrepareTojump jumpforce = "+jumpforce);
+			    //Debug.Log("PlayerController.UpdateJumpState() JumpState.PrepareTojump jumpforce = "+jumpforce);
 			    jumpforce += model.forcestep;
 			}
 			//Debug.Log("PlayerController.UpdateJumpState() JumpState.PrepareTojump jumpforce = "+jumpforce);
 		    } else {
 			if(faceright)
-			    move.x = 1;
+			    velocity.x = model.jumpxcoef;
 			else {
-			    move.x = -1;
+			    velocity.x = -model.jumpxcoef;
 			}
 			m_jumpstate = JumpState.Jumping;
 		    }
 		    break;
 		case JumpState.Jumping:
-		    m_jumpstate = JumpState.InFlight;
-		    animator.SetBool("grounded",false);
+		    velocity.y = jumpforce * model.jumpycoef;
+		    Debug.Log("PlayerController.UpdateJumpState() case JumpState.Jumping: velocity = "+velocity);
+
 		    IsGrounded = false;
+		    animator.SetBool("grounded",false);
+
+		    m_jumpstate = JumpState.InFlight;
 		    break;
 		case JumpState.InFlight:
 		    jumpforce =0;
+		    Debug.Log("PlayerController.UpdateJumpState() case JumpState.InFlight: "+velocity+"IsGrounded ="+IsGrounded);
 		    if(IsGrounded)
 		    {
 			m_jumpstate = JumpState.Landed;
@@ -108,28 +124,7 @@ namespace Platformer.Mechanics {
 	}
 	protected override void ComputeVelocity()
 	{
-	    if(move.x > 0.01f)
-		faceright = true;
-	    else if(move.x < -0.01f)
-		faceright = false;
-	    spriteRenderer.flipX = !faceright;
 
-	    if(velocity.x !=0)
-	    {
-		//Debug.Log("PlayerController.ComputeVelocity() m_jumpstate = " +m_jumpstate);
-		//Debug.Log("PlayerController.ComputeVelocity() velocity.x = "+velocity.x);
-	    }
-	    animator.SetFloat("velocityX", Mathf.Abs(velocity.x));
-	    //animator.SetFloat("grouded", Mathf.Abs(velocity.x));
-	    if(m_jumpstate == JumpState.Landed)
-		velocity.x = move.x * model.maxSpeed;
-	    if(m_jumpstate == JumpState.Jumping)
-	    {
-		velocity.x += move.x * model.jumpxcoef;
-		velocity.y += jumpforce * model.jumpycoef;
-		//Debug.Log("PlayerController.ComputeVelocity() velocity.y = "+velocity.y);
-		//Debug.Log("PlayerController.ComputeVelocity() Time.deltaTime"+Time.deltaTime);
-	    }
 	}
     }
 }
