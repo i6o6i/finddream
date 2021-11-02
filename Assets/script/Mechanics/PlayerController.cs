@@ -45,10 +45,8 @@ namespace Platformer.Mechanics {
 		if(Input.GetKeyDown(KeyCode.Space))
 		{
 		    m_isheld =true;
-		    Debug.Log("PlayerController.Update() m_isheld = true");
 		}else if(Input.GetKeyUp(KeyCode.Space)) {
 		    m_isheld =false;
-		    Debug.Log("PlayerController.Update() m_isheld = false");
 		}
 	    }
 	    UpdateJumpState();
@@ -101,7 +99,7 @@ namespace Platformer.Mechanics {
 		    break;
 		case JumpState.Jumping:
 		    velocity.y = jumpforce * model.jumpycoef;
-		    Debug.Log("PlayerController.UpdateJumpState() case JumpState.Jumping: velocity = "+velocity);
+		    //Debug.Log("PlayerController.UpdateJumpState() case JumpState.Jumping: velocity = "+velocity);
 
 		    IsGrounded = false;
 		    animator.SetBool("grounded",false);
@@ -110,7 +108,7 @@ namespace Platformer.Mechanics {
 		    break;
 		case JumpState.InFlight:
 		    jumpforce =0;
-		    Debug.Log("PlayerController.UpdateJumpState() case JumpState.InFlight: "+velocity+"IsGrounded ="+IsGrounded);
+		    //Debug.Log("PlayerController.UpdateJumpState() case JumpState.InFlight: "+velocity+"IsGrounded ="+IsGrounded);
 		    if(IsGrounded)
 		    {
 			m_jumpstate = JumpState.Landed;

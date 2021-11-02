@@ -102,14 +102,14 @@ namespace Platformer.Mechanics
         protected virtual void FixedUpdate()
         {
             //if already falling, fall faster than the jump speed, otherwise use normal gravity.
-	    Debug.Log("KinematicObject.FixedUpdate() before velocity.y modified"+velocity);
+	    //Debug.Log("KinematicObject.FixedUpdate() before velocity.y modified"+velocity);
             if (velocity.y < 0)
                 velocity += gravityModifier * Physics2D.gravity * Time.deltaTime;
             else
                 velocity += Physics2D.gravity * Time.deltaTime;
 
             //velocity.x = targetVelocity.x;
-	    Debug.Log("KinematicObject.FixedUpdate()"+velocity);
+	    //Debug.Log("KinematicObject.FixedUpdate()"+velocity);
 
             IsGrounded = false;
 
