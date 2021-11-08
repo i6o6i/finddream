@@ -14,5 +14,6 @@ namespace Platformer.Model
 	public float jumpycoef =1;
 	public float jumpxcoef =2;
 	public int blockcnt=8;
+	public int iceSpeed = 1;
     }
 }

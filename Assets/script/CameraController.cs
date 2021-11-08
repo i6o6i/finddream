@@ -36,6 +36,7 @@ public class CameraController : MonoBehaviour
 
     public bool IsExitedCamera(PlayerController player)
     {
+	Debug.Log("CameraController.IsExitedCamera");
 	float camerabuttom = gameObject.transform.position.y - m_OrthographicCamera.orthographicSize;
 	float cameratop = gameObject.transform.position.y + m_OrthographicCamera.orthographicSize;
 	Vector2 buttomleft = player.collider2d.bounds.min;
@@ -48,6 +49,7 @@ public class CameraController : MonoBehaviour
     }
     public void MoveToNextScence(PlayerController player)
     {
+	//Debug.Log("CameraController.MoveToNextScence");
 	float camerabuttom = gameObject.transform.position.y - m_OrthographicCamera.orthographicSize;
 	Vector2 buttomleft = player.collider2d.bounds.min;
 	Vector3 translation = new Vector3(0,0,0);

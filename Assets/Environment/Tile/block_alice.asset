@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: block_alice
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 7482667652216324306, guid: 12c188bfa5233ab4aac174c1bd773a0a, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.60784316, g: 0.7607844, b: 0.90196085, a: 1}
   m_Transform:
     e00: 1
     e01: 0

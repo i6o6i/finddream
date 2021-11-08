@@ -16,7 +16,10 @@ namespace Platformer.Mechanics {
 	public bool m_isheld;
 	public Collider2D collider2d;
 	private float ground;
+	public float jump_coef_h=1;
+	public float jump_coef_w=1;
 	Vector2 move;
+	public bool isStandonIce=false;
 	public enum JumpState
 	{
 	    Landed,
@@ -66,8 +69,16 @@ namespace Platformer.Mechanics {
 		    else if(move.x < -0.01f)
 			faceright = false;
 		    spriteRenderer.flipX = !faceright;
-		    animator.SetFloat("velocityX", Mathf.Abs(velocity.x));
-		    velocity.x = move.x * model.maxSpeed;
+
+		    if(move.x == 0 && isStandonIce)
+		    {
+			animator.SetFloat("velocityX", 0);
+			velocity.x =  faceright?model.iceSpeed:-model.iceSpeed;
+		    }else
+		    {
+			velocity.x = move.x * model.maxSpeed;
+			animator.SetFloat("velocityX", Mathf.Abs(velocity.x));
+		    }
 		    if(m_isheld)
 		    {
 			//Debug.Log("PlayerController.UpdateJumpState() JumpState.PrepareTojump m_jumpstate change to PrepareTojump");
@@ -75,39 +86,49 @@ namespace Platformer.Mechanics {
 		    }
 		    if(velocity.y<0)
 		    {
+			//离开平台自由落体时清空状态
+			jump_coef_h = 1;
+			jump_coef_w = 1;
+			isStandonIce = false;
 			m_jumpstate = JumpState.InFlight;
+			animator.SetBool("grounded",true);
 		    }
 		    break;
 		case JumpState.PrepareTojump:
 		    //Debug.Log("PlayerController.UpdateJumpState() JumpState.PrepareTojump m_isheld = "+m_isheld);
 		    if(m_isheld)
 		    {
-			if(jumpforce < model.maxforce)
+			if(jumpforce < jump_coef_h*model.maxforce)
 			{
 			    //Debug.Log("PlayerController.UpdateJumpState() JumpState.PrepareTojump jumpforce = "+jumpforce);
-			    jumpforce += model.forcestep;
+			    jumpforce += jump_coef_h*model.forcestep;
 			}
 			//Debug.Log("PlayerController.UpdateJumpState() JumpState.PrepareTojump jumpforce = "+jumpforce);
 		    } else {
 			if(faceright)
-			    velocity.x = model.jumpxcoef;
+			    velocity.x = jump_coef_w*model.jumpxcoef;
 			else {
-			    velocity.x = -model.jumpxcoef;
+			    velocity.x = -jump_coef_w*model.jumpxcoef;
 			}
 			m_jumpstate = JumpState.Jumping;
 		    }
 		    break;
 		case JumpState.Jumping:
 		    velocity.y = jumpforce * model.jumpycoef;
-		    //Debug.Log("PlayerController.UpdateJumpState() case JumpState.Jumping: velocity = "+velocity);
+		    Debug.Log("PlayerController.UpdateJumpState() case JumpState.Jumping: velocity = "+velocity);
 
 		    IsGrounded = false;
 		    animator.SetBool("grounded",false);
+		    //开始跳跃时清空状态
+		    jump_coef_h = 1;
+		    jump_coef_w = 1;
+		    isStandonIce = false;
 
 		    m_jumpstate = JumpState.InFlight;
 		    break;
 		case JumpState.InFlight:
 		    jumpforce =0;
+		    animator.SetBool("grounded",false);
 		    //Debug.Log("PlayerController.UpdateJumpState() case JumpState.InFlight: "+velocity+"IsGrounded ="+IsGrounded);
 		    if(IsGrounded)
 		    {

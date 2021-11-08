@@ -163,7 +163,7 @@ namespace Platformer.Mechanics
                     else
                     {
                         //We are airborne, but hit something, so cancel vertical up and horizontal velocity.
-			Debug.Log("KinematicObject.PerformMovement() IsGrounded == false branch "+velocity);
+			Debug.Log("KinematicObject.PerformMovement() branch IsGrounded == false"+velocity);
 			var projection=Vector2.Dot(velocity,currentNormal);
 			velocity = velocity - 2*projection*currentNormal;
                         //velocity.x *= 0;
