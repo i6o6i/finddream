@@ -7,7 +7,7 @@ namespace Platformer.Mechanics
     public class GameController :MonoBehaviour
     {
 	public static GameController Instance { get; private set; }
-	public PlatformerModel model = Simulation.GetModel<PlatformerModel>();
+	public PlatformerModel model = Instance<PlatformerModel>.get();
 
         void OnEnable()
         {
@@ -17,11 +17,6 @@ namespace Platformer.Mechanics
         void OnDisable()
         {
             if (Instance == this) Instance = null;
-        }
-
-        void Update()
-        {
-            if (Instance == this) Simulation.Tick();
         }
     }
 }

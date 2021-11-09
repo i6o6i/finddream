@@ -6,7 +6,8 @@ namespace Platformer.Model
     [System.Serializable]
     public class PlatformerModel
     {
-	public PlayerController player;
+	public PlayerController player1;
+	public PlayerController player2;
 
 	public float maxSpeed = 6;
 	public float forcestep =0.05F;

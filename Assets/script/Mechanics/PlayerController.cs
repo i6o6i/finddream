@@ -7,7 +7,8 @@ using UnityEngine;
 namespace Platformer.Mechanics {
     public class PlayerController : KinematicObject
     {
-	readonly PlatformerModel model = Simulation.GetModel<PlatformerModel>();
+	//readonly PlatformerModel model = Simulation.GetModel<PlatformerModel>();
+	readonly PlatformerModel model = Instance<PlatformerModel>.get();
 	public CameraController m_CameraCtrl;
 	public bool controlEnabled = true;
 	SpriteRenderer spriteRenderer;
@@ -16,8 +17,8 @@ namespace Platformer.Mechanics {
 	public bool m_isheld;
 	public Collider2D collider2d;
 	private float ground;
-	public float jump_coef_h=1;
-	public float jump_coef_w=1;
+	internal float jump_coef_h=1;
+	internal float jump_coef_w=1;
 	Vector2 move;
 	public bool isStandonIce=false;
 	public enum JumpState
@@ -29,6 +30,7 @@ namespace Platformer.Mechanics {
 	};
 	public JumpState m_jumpstate = JumpState.Landed;
 	internal Animator animator;
+	internal TokenAndEffect and_effect;
 	// Start is called before the first frame update
 
 	void Awake()
@@ -73,7 +75,7 @@ namespace Platformer.Mechanics {
 		    if(move.x == 0 && isStandonIce)
 		    {
 			animator.SetFloat("velocityX", 0);
-			velocity.x =  faceright?model.iceSpeed:-model.iceSpeed;
+			velocity.x =  velocity.x>0?model.iceSpeed:-model.iceSpeed;
 		    }else
 		    {
 			velocity.x = move.x * model.maxSpeed;
@@ -84,7 +86,7 @@ namespace Platformer.Mechanics {
 			//Debug.Log("PlayerController.UpdateJumpState() JumpState.PrepareTojump m_jumpstate change to PrepareTojump");
 			m_jumpstate = JumpState.PrepareTojump;
 		    }
-		    if(velocity.y<0)
+		    if(velocity.y<-0.01f)
 		    {
 			//离开平台自由落体时清空状态
 			jump_coef_h = 1;
