@@ -7,13 +7,14 @@ namespace Platformer.Mechanics
     [RequireComponent(typeof(Collider2D))]
     public class TokenInstance : MonoBehaviour
     {
+	[System.Serializable]
 	public class TokenEvent : UnityEvent<PlayerController> { }
 	[System.Serializable]
 	public struct TokenEffect {
 	    public Sprite sprite;
 	    public TokenEvent effect;
 	}
-	public TokenEffect effects;
+	public TokenEffect[] effects;
 	Dictionary<Sprite, TokenEvent> _effectMap;
 
         public bool randomAnimationStartTime = false;
@@ -30,15 +31,14 @@ namespace Platformer.Mechanics
         internal int frame = 0;
         internal bool collected = false;
 
-
 	// Pack our map of tile effects into a dictionary for ease of lookups.
 	private void OnEnable() {
 	    if (_effectMap != null)
 		return;
 
-	    _effectMap = new Dictionary<TileBase, CollisionEvent>(effects.Length);
+	    _effectMap = new Dictionary<Sprite, TokenEvent>(effects.Length);
 	    foreach (var entry in effects)
-		_effectMap.Add(entry.tile, entry.effect);
+		_effectMap.Add(entry.sprite, entry.effect);
 	}
         void Awake()
         {
@@ -65,9 +65,23 @@ namespace Platformer.Mechanics
             if (controller != null)
                 collected = true;
 
-	    if (_effectMap.TryGetValue(tile, out CollisionEvent effect) && effect != null)
-		effect.Invoke(playerController);
+	    var sprite = idleAnimation[0];
+	    if (_effectMap.TryGetValue(sprite, out TokenEvent effect) && effect != null)
+		effect.Invoke(player);
+	    else Debug.Log("TokenInstance.OnPlayerEnter() cannot retrieve event handler in _effectMap");
         }
+	public void teleport_effect(PlayerController pc)
+	{
+	    Debug.Log("TokenInstance.teleport_effect() teleport token is collected");
+	    pc.teleportTok = new TokenTeleport(pc);
+
+	}
+
+	public void assistance_effect(PlayerController pc)
+	{
+	    Debug.Log("TokenInstance.assistance_effect() assistance token is collected");
+	    pc.TokAssist = new TokenAssist(pc);
+	}
 
     }
 }

@@ -2,19 +2,20 @@ using UnityEngine;
 
 namespace Platformer.Mechanics
 {
-    public class TokenAndEffect 
+    public class TokenTeleport 
     {
-	void token_effect(PlayerController player)
+	private PlayerController m_pc;
+	private Vector3 m_pos;
+	public TokenTeleport(PlayerController pc)
 	{
-	    Debug.Log("TokenAndEffect.token_effect() pos = "+((KinematicObject)player).body.position);
-	    player.previous_pos = ((KinematicObject)player).body.position;
+	    m_pc = pc;
+	    m_pos = pc.get_pos();
 	}
-	public void transfer(PlayerController pc)
+	public void use_effect()
 	{
-	   Vector3 pos;
-	   pos.x = m_pos.x;
-	   pos.y = m_pos.y;
-	   pc.Teleport(pos);
+	    Debug.Log("TokenAndEffect.use_effect() pc.and_effect.m_pos= "+m_pos);
+	   m_pc.Teleport(m_pos);
+	   m_pc.teleportTok = null;
 	}
     }
 }

@@ -69,6 +69,12 @@ namespace Platformer.Mechanics
             velocity *= 0;
             body.velocity *= 0;
         }
+	public Vector3 get_pos()
+	{
+	    Vector3 pos;
+	    pos = body.position;
+	    return pos;
+	}
 
         protected virtual void OnEnable()
         {

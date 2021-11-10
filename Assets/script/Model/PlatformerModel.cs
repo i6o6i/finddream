@@ -16,5 +16,9 @@ namespace Platformer.Model
 	public float jumpxcoef =2;
 	public int blockcnt=8;
 	public int iceSpeed = 1;
+	public KeyCode teleportKeyCode = KeyCode.T;
+	public KeyCode assistKeyCode = KeyCode.Y;
+	public float lineDuration = 3.0F;
+	public float linesteptime = 0.5F;
     }
 }

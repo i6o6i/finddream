@@ -30,7 +30,8 @@ namespace Platformer.Mechanics {
 	};
 	public JumpState m_jumpstate = JumpState.Landed;
 	internal Animator animator;
-	internal TokenAndEffect and_effect;
+	internal TokenTeleport teleportTok = null;
+	internal TokenAssist TokAssist = null;
 	// Start is called before the first frame update
 
 	void Awake()
@@ -38,6 +39,7 @@ namespace Platformer.Mechanics {
 	    spriteRenderer = GetComponent<SpriteRenderer>();
 	    collider2d = GetComponent<Collider2D>();
 	    animator = GetComponent<Animator>();
+	    m_CameraCtrl.set_player(this);
 	}
 
 	// Update is called once per frame
@@ -54,7 +56,27 @@ namespace Platformer.Mechanics {
 		    m_isheld =false;
 		}
 	    }
+	    if(Input.GetKeyDown(model.teleportKeyCode))
+	    {
+		//Debug.Log("Teleport Key down");
+		if(teleportTok !=null)
+		{
+		    teleportTok.use_effect();
+		}
+	    }
+	    if(Input.GetKeyDown(model.assistKeyCode))
+	    {
+		//Debug.Log("Teleport Key down");
+		if(TokAssist !=null)
+		{
+		    TokAssist.UseEffect();
+		}
+	    }
 	    UpdateJumpState();
+	    if(TokAssist !=null)
+	    {
+		TokAssist.Update();
+	    }
 	    base.Update();
 	}
 	void UpdateGound()
@@ -103,7 +125,7 @@ namespace Platformer.Mechanics {
 			if(jumpforce < jump_coef_h*model.maxforce)
 			{
 			    //Debug.Log("PlayerController.UpdateJumpState() JumpState.PrepareTojump jumpforce = "+jumpforce);
-			    jumpforce += jump_coef_h*model.forcestep;
+			    jumpforce += jump_coef_h*model.forcestep* model.jumpycoef;
 			}
 			//Debug.Log("PlayerController.UpdateJumpState() JumpState.PrepareTojump jumpforce = "+jumpforce);
 		    } else {
@@ -116,8 +138,8 @@ namespace Platformer.Mechanics {
 		    }
 		    break;
 		case JumpState.Jumping:
-		    velocity.y = jumpforce * model.jumpycoef;
-		    Debug.Log("PlayerController.UpdateJumpState() case JumpState.Jumping: velocity = "+velocity);
+		    velocity.y = jumpforce;
+		    //Debug.Log("PlayerController.UpdateJumpState() case JumpState.Jumping: velocity = "+velocity);
 
 		    IsGrounded = false;
 		    animator.SetBool("grounded",false);

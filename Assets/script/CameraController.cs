@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour
     float m_viewpositionx,m_viewpositiony, m_viewwidth, m_viewheight;
     public Camera m_OrthographicCamera;
     readonly int blockcnt=Instance<PlatformerModel>.get().blockcnt;
+    private PlayerController m_pc;
     private float aspect;
     private float size;
     // Start is called before the first frame update
@@ -27,16 +28,23 @@ public class CameraController : MonoBehaviour
     {
 	initialcamera();
     }
+    public void set_player(PlayerController pc)
+    {
+	m_pc = pc;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        
+	if(IsExitedCamera(m_pc))
+	{
+	    MoveToNextScence(m_pc);
+	}
     }
 
     public bool IsExitedCamera(PlayerController player)
     {
-	Debug.Log("CameraController.IsExitedCamera");
+	//Debug.Log("CameraController.IsExitedCamera");
 	float camerabuttom = gameObject.transform.position.y - m_OrthographicCamera.orthographicSize;
 	float cameratop = gameObject.transform.position.y + m_OrthographicCamera.orthographicSize;
 	Vector2 buttomleft = player.collider2d.bounds.min;
