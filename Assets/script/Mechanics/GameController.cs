@@ -7,8 +7,13 @@ namespace Platformer.Mechanics
     public class GameController :MonoBehaviour
     {
 	public static GameController Instance { get; private set; }
-	public PlatformerModel model = Instance<PlatformerModel>.get();
+	public PlatformerModel model;
 
+	void Start()
+	{
+	    model = Instance<PlatformerModel>.get();
+
+	}
         void OnEnable()
         {
             Instance = this;

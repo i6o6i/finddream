@@ -12,9 +12,9 @@ namespace Platformer.Mechanics {
 	public CameraController m_CameraCtrl;
 	public bool controlEnabled = true;
 	SpriteRenderer spriteRenderer;
-	public bool faceright=true;
+	internal bool faceright=true;
 	public float jumpforce;
-	public bool m_isheld;
+	internal bool m_isheld;
 	public Collider2D collider2d;
 	private float ground;
 	internal float jump_coef_h=1;
@@ -159,7 +159,7 @@ namespace Platformer.Mechanics {
 			m_jumpstate = JumpState.Landed;
 			animator.SetBool("grounded",true);
 			UpdateGound();
-			m_CameraCtrl.MoveToNextScence(this);
+			m_CameraCtrl.MoveToNextScence();
 			move.x=0;
 		    }
 		    break;

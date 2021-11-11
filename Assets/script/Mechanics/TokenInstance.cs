@@ -30,6 +30,7 @@ namespace Platformer.Mechanics
         //active frame in animation, updated by the controller.
         internal int frame = 0;
         internal bool collected = false;
+	public List<TokenEvent> all_effect;
 
 	// Pack our map of tile effects into a dictionary for ease of lookups.
 	private void OnEnable() {
@@ -46,7 +47,7 @@ namespace Platformer.Mechanics
             if (randomAnimationStartTime)
                 frame = Random.Range(0, sprites.Length);
             sprites = idleAnimation;
-	    Debug.Log("token is awaken object name"+sprites[frame].name+" sprites.frame is "+frame);
+	    //Debug.Log("token is awaken object name"+sprites[frame].name+" sprites.frame is "+frame);
         }
 
         void OnTriggerEnter2D(Collider2D other)
@@ -58,6 +59,7 @@ namespace Platformer.Mechanics
 
         void OnPlayerEnter(PlayerController player)
         {
+	    Debug.Log("TokenInstance.OnPlayerEnter() collected = "+collected);
             if (collected) return;
             //disable the gameObject and remove it from the controller update list.
             frame = 0;
@@ -81,6 +83,38 @@ namespace Platformer.Mechanics
 	{
 	    Debug.Log("TokenInstance.assistance_effect() assistance token is collected");
 	    pc.TokAssist = new TokenAssist(pc);
+	}
+
+	public void down_effect(PlayerController pc)
+	{
+	    Debug.Log("TokenInstance.down_effect() down token is collected");
+	    TokenMoveDown tok = new TokenMoveDown(pc);
+	    tok.UseEffect();
+	}
+
+	public void up_effect(PlayerController pc)
+	{
+	    Debug.Log("TokenInstance.up_effect() up token is collected");
+	    TokenMoveUp tok = new TokenMoveUp(pc);
+	    tok.UseEffect();
+	}
+
+	public void randomvert_effect(PlayerController pc)
+	{
+	    Debug.Log("TokenInstance.randomvert_effect() random verticle move token is collected");
+	    TokenMoveVert tok = new TokenMoveVert(pc);
+	    tok.m_movestep = Random.Range(-3,4);
+	    tok.UseEffect();
+	}
+
+	public void random_effect(PlayerController pc)
+	{
+	    Debug.Log("TokenInstance.random_effect() random effect token is collected");
+	    
+	    Debug.Log("TokenInstance.random_effect() all_effect.Count = "+all_effect.Count);
+	    int idx = Random.Range(0,all_effect.Count);
+	    all_effect[idx].Invoke(pc);
+
 	}
 
     }

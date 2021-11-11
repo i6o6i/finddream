@@ -36,30 +36,30 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-	if(IsExitedCamera(m_pc))
+	if(IsExitedCamera())
 	{
-	    MoveToNextScence(m_pc);
+	    MoveToNextScence();
 	}
     }
 
-    public bool IsExitedCamera(PlayerController player)
+    public bool IsExitedCamera()
     {
 	//Debug.Log("CameraController.IsExitedCamera");
 	float camerabuttom = gameObject.transform.position.y - m_OrthographicCamera.orthographicSize;
 	float cameratop = gameObject.transform.position.y + m_OrthographicCamera.orthographicSize;
-	Vector2 buttomleft = player.collider2d.bounds.min;
-	Vector2 topright = player.collider2d.bounds.max;
+	Vector2 buttomleft = m_pc.collider2d.bounds.min;
+	Vector2 topright = m_pc.collider2d.bounds.max;
 	if(buttomleft.y <= camerabuttom || topright.y >= cameratop)
 	{
 	    return false;
 	}
 	return true;
     }
-    public void MoveToNextScence(PlayerController player)
+    public void MoveToNextScence()
     {
 	//Debug.Log("CameraController.MoveToNextScence");
 	float camerabuttom = gameObject.transform.position.y - m_OrthographicCamera.orthographicSize;
-	Vector2 buttomleft = player.collider2d.bounds.min;
+	Vector2 buttomleft = m_pc.collider2d.bounds.min;
 	Vector3 translation = new Vector3(0,0,0);
 	translation.x = 0;
 	translation.y = buttomleft.y - camerabuttom -1;

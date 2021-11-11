@@ -37,7 +37,7 @@ namespace Platformer.Mechanics
                     var token = tokens[i];
                     if (token != null)
                     {
-			Debug.Log("tokens.index is "+ i +" tokens[index].frame is "+ token.frame);
+			//Debug.Log("tokens.index is "+ i +" tokens[index].frame is "+ token.frame);
                         token._renderer.sprite = token.sprites[token.frame];
                         if (token.collected && token.frame == token.sprites.Length - 1)
                         {
@@ -47,7 +47,7 @@ namespace Platformer.Mechanics
                         else
                         {
                             token.frame = (token.frame + 1) % token.sprites.Length;
-			    Debug.Log("tokens.index is "+ i +"after ifelse branch tokens[index].frame is "+ token.frame);
+			    //Debug.Log("tokens.index is "+ i +"after ifelse branch tokens[index].frame is "+ token.frame);
                         }
                     }
                 }

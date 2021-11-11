@@ -120,6 +120,7 @@ namespace Platformer.Mechanics
             IsGrounded = false;
 
             var deltaPosition = velocity * Time.deltaTime;
+	    //Debug.Log("KinematicObject.FixedUpdate() Time.deltaTime = "+Time.deltaTime);
 
             var moveAlongGround = new Vector2(groundNormal.y, -groundNormal.x);
 
