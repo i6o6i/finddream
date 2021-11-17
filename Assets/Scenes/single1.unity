@@ -298,11 +298,11 @@ MonoBehaviour:
   collider2d: {fileID: 0}
   isStandonIce: 0
   m_jumpstate: 0
-  jump_key: 0
-  left_key: 0
+  jump_key: 32
+  left_key: 97
   right_key: 100
-  teleport_key: 0
-  assist_key: 0
+  teleport_key: 116
+  assist_key: 121
 --- !u!120 &192710373
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -919,8 +919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frameRate: 12
-  tokens:
-  - {fileID: 0}
+  tokens: []
   tokenDataKV:
   - sprite: {fileID: 21300000, guid: 3270692f4a60e814f843592dd75b8fe1, type: 3}
     tokenData:
