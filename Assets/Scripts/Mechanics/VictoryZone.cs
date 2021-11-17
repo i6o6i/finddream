@@ -18,11 +18,19 @@ namespace Platformer.Mechanics
 
 	void OnPlayerEnter(PlayerController pc)
 	{
-	    Debug.Log("VictoryZone.OnPlayerEnter() "+pc.m_PlayerName);
+	    Debug.Log("VictoryZone.OnPlayerEnter()"
+		    +" pc.m_PlayerName = "+pc.m_PlayerName
+		    +" IsMultiplayer = "+IsMultiplayer
+		    );
 	    if(IsMultiplayer)
 	    {
 		SceneData.PlayerName = pc.m_PlayerName;
 	    }
+	    else
+	    {
+		SceneData.PlayerName = "";
+	    }
+	    SceneData.IsMultiplayer = IsMultiplayer;
 	    SceneManager.LoadScene(m_SceneName);
 	}
     }

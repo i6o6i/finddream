@@ -461,7 +461,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 0.090557136, g: 0.39864692, b: 0.5188679, a: 1}
+  m_Color: {r: 0.090557136, g: 0.39864692, b: 0.5188679, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -479,7 +479,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 239363961}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.09, y: 1.33, z: 0}
+  m_LocalPosition: {x: 5.18, y: 10.69, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -649,29 +649,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6e12e13f0e2e84f915a1653ffd2a12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effects:
-  - sprite: {fileID: 21300000, guid: 32c9613fd4b94b248a9add254cef4da9, type: 3}
-    effect:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 558778757}
-          m_TargetAssemblyTypeName: Platformer.Mechanics.TokenInstance, Assembly-CSharp
-          m_MethodName: up_effect
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  effect:
+    m_PersistentCalls:
+      m_Calls: []
   randomAnimationStartTime: 1
   idleAnimation:
   - {fileID: 21300000, guid: 32c9613fd4b94b248a9add254cef4da9, type: 3}
-  collectedAnimation:
-  - {fileID: 21300000, guid: c744b591dd40bee489b0e2b430b2623d, type: 3}
-  all_effect: []
 --- !u!58 &558778758
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -784,29 +767,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6e12e13f0e2e84f915a1653ffd2a12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effects:
-  - sprite: {fileID: 21300000, guid: 7739b4c117aac2547951a00fe53bc938, type: 3}
-    effect:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 806594968}
-          m_TargetAssemblyTypeName: Platformer.Mechanics.TokenInstance, Assembly-CSharp
-          m_MethodName: down_effect
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  effect:
+    m_PersistentCalls:
+      m_Calls: []
   randomAnimationStartTime: 1
   idleAnimation:
   - {fileID: 21300000, guid: 7739b4c117aac2547951a00fe53bc938, type: 3}
-  collectedAnimation:
-  - {fileID: 21300000, guid: c744b591dd40bee489b0e2b430b2623d, type: 3}
-  all_effect: []
 --- !u!58 &806594969
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -953,7 +919,123 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frameRate: 12
-  tokens: []
+  tokens:
+  - {fileID: 0}
+  tokenDataKV:
+  - sprite: {fileID: 21300000, guid: 3270692f4a60e814f843592dd75b8fe1, type: 3}
+    tokenData:
+      idleAnimation:
+      - {fileID: 21300000, guid: 3270692f4a60e814f843592dd75b8fe1, type: 3}
+      effect:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 815476524}
+            m_TargetAssemblyTypeName: Platformer.Mechanics.TokenController, Assembly-CSharp
+            m_MethodName: teleport_effect
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - sprite: {fileID: 21300000, guid: 366ce0b0b3dc2b1458ffe16b24573294, type: 3}
+    tokenData:
+      idleAnimation:
+      - {fileID: 21300000, guid: 366ce0b0b3dc2b1458ffe16b24573294, type: 3}
+      effect:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 815476524}
+            m_TargetAssemblyTypeName: Platformer.Mechanics.TokenController, Assembly-CSharp
+            m_MethodName: assistance_effect
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - sprite: {fileID: 21300000, guid: 32c9613fd4b94b248a9add254cef4da9, type: 3}
+    tokenData:
+      idleAnimation:
+      - {fileID: 21300000, guid: 32c9613fd4b94b248a9add254cef4da9, type: 3}
+      effect:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 815476524}
+            m_TargetAssemblyTypeName: Platformer.Mechanics.TokenController, Assembly-CSharp
+            m_MethodName: up_effect
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - sprite: {fileID: 21300000, guid: 7739b4c117aac2547951a00fe53bc938, type: 3}
+    tokenData:
+      idleAnimation:
+      - {fileID: 21300000, guid: 7739b4c117aac2547951a00fe53bc938, type: 3}
+      effect:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 815476524}
+            m_TargetAssemblyTypeName: Platformer.Mechanics.TokenController, Assembly-CSharp
+            m_MethodName: down_effect
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - sprite: {fileID: 21300000, guid: 546598c5dde4ff54796432c2cd99f79e, type: 3}
+    tokenData:
+      idleAnimation:
+      - {fileID: 21300000, guid: 546598c5dde4ff54796432c2cd99f79e, type: 3}
+      effect:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 815476524}
+            m_TargetAssemblyTypeName: Platformer.Mechanics.TokenController, Assembly-CSharp
+            m_MethodName: randomvert_effect
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - sprite: {fileID: 21300000, guid: 65a92b19160c0ab4db995c95cbf5f880, type: 3}
+    tokenData:
+      idleAnimation:
+      - {fileID: 21300000, guid: 65a92b19160c0ab4db995c95cbf5f880, type: 3}
+      effect:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 815476524}
+            m_TargetAssemblyTypeName: Platformer.Mechanics.TokenController, Assembly-CSharp
+            m_MethodName: random_effect
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
 --- !u!1 &997014577
 GameObject:
   m_ObjectHideFlags: 0
@@ -999,29 +1081,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6e12e13f0e2e84f915a1653ffd2a12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effects:
-  - sprite: {fileID: 21300000, guid: 366ce0b0b3dc2b1458ffe16b24573294, type: 3}
-    effect:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 997014579}
-          m_TargetAssemblyTypeName: Platformer.Mechanics.TokenInstance, Assembly-CSharp
-          m_MethodName: assistance_effect
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  effect:
+    m_PersistentCalls:
+      m_Calls: []
   randomAnimationStartTime: 1
   idleAnimation:
   - {fileID: 21300000, guid: 366ce0b0b3dc2b1458ffe16b24573294, type: 3}
-  collectedAnimation:
-  - {fileID: 21300000, guid: c744b591dd40bee489b0e2b430b2623d, type: 3}
-  all_effect: []
 --- !u!58 &997014580
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2561,29 +2626,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6e12e13f0e2e84f915a1653ffd2a12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effects:
-  - sprite: {fileID: 21300000, guid: 546598c5dde4ff54796432c2cd99f79e, type: 3}
-    effect:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1203220600}
-          m_TargetAssemblyTypeName: Platformer.Mechanics.TokenInstance, Assembly-CSharp
-          m_MethodName: randomvert_effect
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  effect:
+    m_PersistentCalls:
+      m_Calls: []
   randomAnimationStartTime: 1
   idleAnimation:
   - {fileID: 21300000, guid: 546598c5dde4ff54796432c2cd99f79e, type: 3}
-  collectedAnimation:
-  - {fileID: 21300000, guid: c744b591dd40bee489b0e2b430b2623d, type: 3}
-  all_effect: []
 --- !u!58 &1203220601
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2807,29 +2855,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6e12e13f0e2e84f915a1653ffd2a12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effects:
-  - sprite: {fileID: 21300000, guid: 3270692f4a60e814f843592dd75b8fe1, type: 3}
-    effect:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1623404239}
-          m_TargetAssemblyTypeName: Platformer.Mechanics.TokenInstance, Assembly-CSharp
-          m_MethodName: teleport_effect
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  effect:
+    m_PersistentCalls:
+      m_Calls: []
   randomAnimationStartTime: 1
   idleAnimation:
   - {fileID: 21300000, guid: 3270692f4a60e814f843592dd75b8fe1, type: 3}
-  collectedAnimation:
-  - {fileID: 21300000, guid: c744b591dd40bee489b0e2b430b2623d, type: 3}
-  all_effect: []
 --- !u!1 &2006084730
 GameObject:
   m_ObjectHideFlags: 0
@@ -2875,99 +2906,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6e12e13f0e2e84f915a1653ffd2a12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effects:
-  - sprite: {fileID: 21300000, guid: 65a92b19160c0ab4db995c95cbf5f880, type: 3}
-    effect:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2006084732}
-          m_TargetAssemblyTypeName: Platformer.Mechanics.TokenInstance, Assembly-CSharp
-          m_MethodName: random_effect
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  effect:
+    m_PersistentCalls:
+      m_Calls: []
   randomAnimationStartTime: 1
   idleAnimation:
   - {fileID: 21300000, guid: 65a92b19160c0ab4db995c95cbf5f880, type: 3}
-  collectedAnimation:
-  - {fileID: 21300000, guid: c744b591dd40bee489b0e2b430b2623d, type: 3}
-  all_effect:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2006084732}
-        m_TargetAssemblyTypeName: Platformer.Mechanics.TokenInstance, Assembly-CSharp
-        m_MethodName: assistance_effect
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2006084732}
-        m_TargetAssemblyTypeName: Platformer.Mechanics.TokenInstance, Assembly-CSharp
-        m_MethodName: up_effect
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2006084732}
-        m_TargetAssemblyTypeName: Platformer.Mechanics.TokenInstance, Assembly-CSharp
-        m_MethodName: down_effect
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2006084732}
-        m_TargetAssemblyTypeName: Platformer.Mechanics.TokenInstance, Assembly-CSharp
-        m_MethodName: randomvert_effect
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2006084732}
-        m_TargetAssemblyTypeName: Platformer.Mechanics.TokenInstance, Assembly-CSharp
-        m_MethodName: teleport_effect
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!58 &2006084733
 CircleCollider2D:
   m_ObjectHideFlags: 0

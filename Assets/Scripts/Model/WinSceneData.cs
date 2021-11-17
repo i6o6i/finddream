@@ -1,9 +1,9 @@
 
 namespace Platformer.Model
 {
-    public class SceneData
+    public static class SceneData
     {
-	static public string PlayerName;
-	static public bool IsMultiplayer;
+	public static string PlayerName;
+	public static bool IsMultiplayer=false;
     }
 }

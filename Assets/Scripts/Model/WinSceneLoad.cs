@@ -5,11 +5,24 @@ namespace Platformer.Model
 {
     public class WinSceneLoad  : MonoBehaviour
     {
+	public string SingleWinText;
+	public string MultiplayWinText;
 	void Start()
 	{
-	    TextMeshPro mText = gameObject.GetComponent<TextMeshPro>();
+	    TextMeshProUGUI mText = GetComponent<TextMeshProUGUI>();
 
-	    mText.text = SceneData.PlayerName+"胜利！";
+		Debug.Log("WinSceneLoad.Start()"
+			+" SceneData.PlayerName = "+SceneData.PlayerName
+			+" SceneData.IsMultiplayer = "+SceneData.IsMultiplayer
+			);
+	    if(SceneData.IsMultiplayer)
+	    {
+		mText.text = SceneData.PlayerName+MultiplayWinText;
+	    }
+	    else
+	    {
+		mText.text = SingleWinText;
+	    }
 	    
 	}
     }
