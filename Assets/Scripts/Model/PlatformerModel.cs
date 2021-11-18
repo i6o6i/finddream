@@ -11,7 +11,7 @@ namespace Platformer.Model
 
 	public float maxSpeed = 3;
 	public float forcestep =20F;
-	public float maxforce=9;
+	public float maxforce=9.5f;
 	public float jumpycoef =1;
 	public float jumpxcoef =0.63f;
 	public int blockcnt=11;
