@@ -60,7 +60,7 @@ namespace Platformer.Mechanics {
 	}
 
 	public void Green(PlayerController pc) {
-	    pc.jump_coef_h =2;
+	    pc.jump_coef_h =1.5f;
 	    Debug.Log("Green");
 	}
 	public void Alice(PlayerController pc) {

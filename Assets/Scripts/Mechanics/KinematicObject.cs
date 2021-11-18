@@ -125,14 +125,12 @@ namespace Platformer.Mechanics
 			velocity = velocity - 2*projection*currentNormal;
                     }
                     var modifiedDistance = hitBuffer[i].distance - shellRadius;
-		    /*
 		    Debug.Log("KinematicObject.PerformMovement()"
 			    +" modifiedDistance = "+modifiedDistance
 			    +" distance = "+distance
 			    +" hitBuffer[i].distance = "+hitBuffer[i].distance
 			    +" velocity = "+velocity
 			    );
-		    */
                     distance = modifiedDistance < distance ? modifiedDistance : distance;
                 }
             }

@@ -9,13 +9,13 @@ namespace Platformer.Model
 	public PlayerController player1;
 	public PlayerController player2;
 
-	public float maxSpeed = 6;
-	public float forcestep =0.05F;
-	public float maxforce=10;
+	public float maxSpeed = 3;
+	public float forcestep =20F;
+	public float maxforce=9;
 	public float jumpycoef =1;
-	public float jumpxcoef =2;
-	public int blockcnt=14;
-	public int iceSpeed = 1;
+	public float jumpxcoef =0.63f;
+	public int blockcnt=11;
+	public int icefriction =8 ;
 	public KeyCode player1jump = KeyCode.Space;
 	public KeyCode player1moveleft = KeyCode.A;
 	public KeyCode player1moveright = KeyCode.D;

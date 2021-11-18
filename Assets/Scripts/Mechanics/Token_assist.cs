@@ -12,6 +12,7 @@ namespace Platformer.Mechanics
 	readonly PlatformerModel model = Instance<PlatformerModel>.get();
 	private LineRenderer m_LineDrawer;
 	internal float m_Timesum=0;
+	internal bool isFirstLevel=false;
 
 	public TokenAssist(PlayerController pc)
 	{
@@ -34,13 +35,9 @@ namespace Platformer.Mechanics
 	    m_IsActive = true;
 	    //DrawParabola();
 	}
-	void Drawcircle(Vector3 center, float radius)
-	{
-
-	}
 	void DrawParabola()
 	{
-	    var velocityx =m_pc.jump_coef_w*model.jumpxcoef;
+	    var velocityx =m_pc.jump_coef_w*model.maxSpeed*model.jumpxcoef;
 	    velocityx *=m_pc.faceright?1:-1;
 	    var velocityy =m_pc.jumpforce;
 	    if(velocityy <=0)
@@ -72,19 +69,28 @@ namespace Platformer.Mechanics
 	    {
 		if(m_pc.m_isheld)
 		{
-		    m_Timesum += Time.deltaTime;
+		    if(m_pc.get_pos().y >57f)
+		    {
+			m_Timesum += Time.deltaTime;
+		    }
 		    if(m_Timesum <= duration)
 		    {
 			DrawParabola();
 		    }
 		    else {
-			ClearParabola();
-			m_pc.TokAssist = null;
+			if(m_pc.get_pos().y > 57f)
+			{
+			    ClearParabola();
+			    m_pc.TokAssist = null;
+			}
 		    }
 		}else if(m_pc.IsGrounded==false)
 		{
 		    ClearParabola();
-		    m_pc.TokAssist = null;
+		    if(m_pc.get_pos().y > 57f)
+		    {
+			m_pc.TokAssist = null;
+		    }
 		}
 	    }
 	}

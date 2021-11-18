@@ -18,8 +18,8 @@ namespace Platformer.Mechanics {
 	internal bool m_isheld;
 	public Collider2D collider2d;
 	private float ground;
-	internal float jump_coef_h=1;
-	internal float jump_coef_w=1;
+	public float jump_coef_h=1;
+	public float jump_coef_w=1;
 	Vector2 move;
 	public bool isStandonIce=false;
 	public enum JumpState
@@ -40,6 +40,16 @@ namespace Platformer.Mechanics {
 	internal TokenAssist TokAssist = null;
 	// Start is called before the first frame update
 
+	void OnEnable()
+	{
+	    base.OnEnable();
+	    if(get_pos().y <= 57&&TokAssist == null)
+	    {
+		TokAssist = new TokenAssist(this);
+		TokAssist.isFirstLevel =true;
+		TokAssist.UseEffect();
+	    }
+	}
 	void Awake()
 	{
 	    spriteRenderer = GetComponent<SpriteRenderer>();
@@ -100,19 +110,30 @@ namespace Platformer.Mechanics {
 	}
 	void UpdateJumpState()
 	{
+	    //Debug.Log("PlayerController.UpdateJumpState() Time.deltaTime ="+Time.deltaTime);
 	    switch(m_jumpstate)
 	    {
 		case JumpState.Landed:
+		    animator.SetBool("IsHeld",false);
 		    if(move.x > 0.01f)
 			faceright = true;
 		    else if(move.x < -0.01f)
 			faceright = false;
 		    spriteRenderer.flipX = !faceright;
 
-		    if(move.x == 0 && isStandonIce)
+		    animator.SetFloat("velocityX", Mathf.Abs(move.x));
+		    if(move.x==0&&isStandonIce)
 		    {
 			animator.SetFloat("velocityX", 0);
-			velocity.x =  velocity.x>0?model.iceSpeed:-model.iceSpeed;
+			var abs = velocity.x>0?velocity.x:-velocity.x;
+			var minus = model.icefriction*Time.deltaTime>abs?abs:model.icefriction*Time.deltaTime;
+			Debug.Log("PlayerController.UpdateJumpState()"
+				+" move.x = "+move.x
+				+" model.icefriction*Time.deltaTime = "+model.icefriction*Time.deltaTime
+				+" velocity.x = "+velocity.x
+				+" minus = "+minus
+				);
+			velocity.x +=velocity.x>0?-minus:minus;
 		    }else
 		    {
 			velocity.x = move.x * model.maxSpeed;
@@ -140,17 +161,15 @@ namespace Platformer.Mechanics {
 			if(jumpforce < jump_coef_h*model.maxforce)
 			{
 			    //Debug.Log("PlayerController.UpdateJumpState() JumpState.PrepareTojump jumpforce = "+jumpforce);
-			    jumpforce += jump_coef_h*model.forcestep* model.jumpycoef;
+			    jumpforce += jump_coef_h*model.forcestep*Time.deltaTime;
 			}
 			//Debug.Log("PlayerController.UpdateJumpState() JumpState.PrepareTojump jumpforce = "+jumpforce);
 		    } else {
-			if(faceright)
-			    velocity.x = jump_coef_w*model.jumpxcoef;
-			else {
-			    velocity.x = -jump_coef_w*model.jumpxcoef;
-			}
+			velocity.x = jump_coef_w*model.maxSpeed*model.jumpxcoef;
+			velocity.x *= faceright?1:-1;
 			m_jumpstate = JumpState.Jumping;
 		    }
+		    animator.SetBool("IsHeld",m_isheld);
 		    break;
 		case JumpState.Jumping:
 		    velocity.y = jumpforce;

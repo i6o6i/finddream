@@ -77,10 +77,10 @@ public class CameraController : MonoBehaviour
 		+" camerabuttom = "+camerabuttom
 		);
 	*/
-	if(buttomleft.y > cameratop) 
+	if(topright.y >= cameratop) 
 	{
 	    return 1;
-	}else if(topright.y < camerabuttom)
+	}else if(buttomleft.y <= camerabuttom)
 	{
 	    return -1;
 	}else {

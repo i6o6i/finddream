@@ -110,7 +110,6 @@ namespace Platformer.Mechanics
 	{
 	    Debug.Log("TokenController.teleport_effect() teleport token is collected");
 	    pc.teleportTok = new TokenTeleport(pc);
-
 	}
 
 	public void assistance_effect(PlayerController pc)
