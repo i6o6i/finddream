@@ -11,7 +11,7 @@ namespace Platformer.Mechanics
 	}
 	public override void UseEffect()
 	{
-	    m_movestep =3;
+	    m_movestep =4;
 	    base.UseEffect();
 
 	}

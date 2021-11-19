@@ -52,6 +52,9 @@ namespace Platformer.Mechanics {
 	    var playerController = collision.collider.gameObject.GetComponent<PlayerController>();
 	    if (_effectMap.TryGetValue(tile, out CollisionEvent effect) && effect != null)
 		effect.Invoke(playerController);
+	    else {
+		Debug.Log("TileCollisionEffect.OnCollisionEnter() cannot find corresponding tile");
+	    }
 	}
 
 	public void Orange(PlayerController pc) {

@@ -24,6 +24,8 @@ namespace Platformer.Mechanics
 	    int cnt =m_movestep>0?m_movestep:-m_movestep;
 	    int step = m_movestep >0?1:-1;
 	    do{
+		gridPosition.y +=step;
+		/*
 		do{
 		    gridPosition.y +=step;
 		    cell = grid.LocalToCell(gridPosition);
@@ -33,6 +35,7 @@ namespace Platformer.Mechanics
 			Debug.Log("hit blocks continue gridPosition = "+gridPosition);
 		    }
 		}while(tile!=null);
+		*/
 		cnt--;
 	    }while(cnt!=0);
 
