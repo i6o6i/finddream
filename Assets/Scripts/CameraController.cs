@@ -24,8 +24,8 @@ public class CameraController : MonoBehaviour
 	aspect = m_OrthographicCamera.aspect;
 	m_OrthographicCamera.orthographicSize = blockcnt * 1/aspect/2;
 	size = m_OrthographicCamera.orthographicSize;
-	gameObject.transform.Translate(-gameObject.transform.position);
-	gameObject.transform.Translate(new Vector3(0,size,-1));
+	//gameObject.transform.Translate(-gameObject.transform.position);
+	//gameObject.transform.Translate(new Vector3(0,size,-1));
     }
     void Start()
     {
@@ -73,7 +73,9 @@ public class CameraController : MonoBehaviour
 	Vector2 topright = m_pc.collider2d.bounds.max;
 	/*
 	Debug.Log("CameraController.IsExitedCamera()"
+		+" topright = "+topright
 		+" buttomleft = "+buttomleft
+		+" cameratop = "+cameratop
 		+" camerabuttom = "+camerabuttom
 		);
 	*/

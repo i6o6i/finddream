@@ -14,6 +14,7 @@ namespace Platformer.Mechanics
         protected Vector2 targetVelocity;
         protected Vector2 groundNormal;
         protected Rigidbody2D body;
+	//public Collider2D collider2d;
         protected ContactFilter2D contactFilter;
         protected RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
 
@@ -36,6 +37,7 @@ namespace Platformer.Mechanics
         protected virtual void OnEnable()
         {
             body = GetComponent<Rigidbody2D>();
+	    //collider2d = GetComponent<Collider2D>();
             body.isKinematic = true;
         }
 
@@ -120,7 +122,7 @@ namespace Platformer.Mechanics
                     }
                     else
                     {
-			Debug.Log("KinematicObject.PerformMovement() branch IsGrounded == false"+velocity);
+			//Debug.Log("KinematicObject.PerformMovement() branch IsGrounded == false"+velocity);
 			var projection=Vector2.Dot(velocity,currentNormal);
 			velocity = velocity - 2*projection*currentNormal;
                     }
@@ -130,10 +132,19 @@ namespace Platformer.Mechanics
 			    +" distance = "+distance
 			    +" hitBuffer[i].distance = "+hitBuffer[i].distance
 			    +" velocity = "+velocity
+			    +" move.normalized = "+move.normalized
 			    );
+		    //hitBuffer[i].collider.gameObject.GetComponent<MonoBehaviour>().OnTriggerEnter2D(collider2d);
                     distance = modifiedDistance < distance ? modifiedDistance : distance;
+		    Debug.Log("KinematicObject.PerformMovement()"
+			    +" distance = "+distance
+			    );
                 }
-            }
+            }else
+	    {
+		Debug.Log("KinematicObject.PerformMovement() distance <= minMoveDistance distance = " + distance);
+	    }
+	    
             body.position = body.position + move.normalized * distance;
         }
 

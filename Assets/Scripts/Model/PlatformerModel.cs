@@ -16,6 +16,7 @@ namespace Platformer.Model
 	public float jumpxcoef =0.63f;
 	public int blockcnt=11;
 	public int icefriction =8 ;
+	public float MovedPlatSpeed =1.0f;
 	public KeyCode player1jump = KeyCode.Space;
 	public KeyCode player1moveleft = KeyCode.A;
 	public KeyCode player1moveright = KeyCode.D;

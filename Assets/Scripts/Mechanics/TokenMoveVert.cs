@@ -18,8 +18,6 @@ namespace Platformer.Mechanics
 	    Vector3 pos=m_pc.get_pos();
 
 	    Vector3 gridPosition = grid.transform.InverseTransformPoint(pos);
-	    Vector3Int cell;
-	    TileBase tile;
 
 	    int cnt =m_movestep>0?m_movestep:-m_movestep;
 	    int step = m_movestep >0?1:-1;

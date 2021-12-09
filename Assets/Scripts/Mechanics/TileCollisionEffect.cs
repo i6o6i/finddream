@@ -17,6 +17,8 @@ namespace Platformer.Mechanics {
 
 	public TileEffect[] effects;
 	Dictionary<TileBase, CollisionEvent> _effectMap;
+	private LineRenderer m_LineDrawer;
+	private int idx;
 
 	private void OnEnable() {
 	    if (_effectMap != null)
@@ -25,33 +27,84 @@ namespace Platformer.Mechanics {
 	    _effectMap = new Dictionary<TileBase, CollisionEvent>(effects.Length);
 	    foreach (var entry in effects)
 		_effectMap.Add(entry.tile, entry.effect);
+	    idx = 0;
+	}
+	void DrawCross(Vector3 center)
+	{
+	    LineRenderer line_render = gameObject.GetComponent<LineRenderer>();
+	    line_render.startColor = Color.white;
+	    line_render.endColor = Color.black;
+	    line_render.positionCount = 12;
+	    idx= idx%12;
+	    var x = new Vector3(1,0,0);
+	    var y = new Vector3(0,1,0);
+	    line_render.SetPosition(idx++,center);
+	    line_render.SetPosition(idx++,center-x);
+	    line_render.SetPosition(idx++,center+x);
+	    line_render.SetPosition(idx++,center-y);
+	    line_render.SetPosition(idx++,center+y);
+	    line_render.SetPosition(idx++,center);
+	    line_render.startWidth = 0.02f;
+	    line_render.endWidth = 0.02f;
+	    line_render.material =  new Material(Shader.Find("Sprites/Default"));
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision) {
-	    var contact = collision.GetContact(0);
-	    Debug.Log("TileCollisionEffect.OnCollisionEnter() contact.normal = "+contact.normal);
-	    if(contact.normal.y > -.65f) //和KinematicObject的minGroundNormal一致，玩家碰撞到方块的矢量，落地时为负值
+	    var points=new ContactPoint2D[100];
+	    var collider = collision.collider;
+	    int contact_point_num = collider.GetContacts(points);
+	    Debug.Log("TileCollisionEffect.OnCollisionEnter()"
+		    +" contact.normal = "+points[0].normal
+		    +" contact.points.Count = "+contact_point_num
+		    );
+	    if(points[0].normal.y < 0) //和KinematicObject的minGroundNormal一致，玩家碰撞到方块的矢量，落地时为负值
 	    {
+		Debug.Log("TileCollisionEffect.OnCollisionEnter() contact_points[0].normal.y <= -.65f");
 		return;
 	    }
+
 	    var map = GetComponent<Tilemap>();
 	    var grid = map.layoutGrid;
 
-	    Vector3 contactPoint = contact.point + 0.05f * contact.normal;
-	    Vector3 gridPosition = grid.transform.InverseTransformPoint(contactPoint);
-	    Vector3Int cell = grid.LocalToCell(gridPosition);
+	    var tileWorldPos = points[1].point;
+	    Vector3 localPosition = grid.transform.InverseTransformPoint(tileWorldPos);
+	    /*
+	    Debug.Log("TileCollisionEffect.OnCollisionEnter()"
+		    +" contact.point = "+points[0].point
+		    +" localPosition = "+localPosition
+		    );
+		    */
+	    localPosition = localPosition - (Vector3)points[1].normal*0.5f;
+	    Vector3Int cell = grid.LocalToCell(localPosition);
+
+	    /*
+	    Debug.Log("TileCollisionEffect.OnCollisionEnter()"
+		    +" contact.point = "+points[0].point
+		    +" localPosition = "+localPosition
+		);
+		*/
+	    DrawCross(points[1].point);
+	    Vector3 WorldPos = grid.transform.TransformPoint(localPosition);
+	    DrawCross(WorldPos);
 
 	    var tile = map.GetTile(cell);
 
 	    if(tile == null)
 	    {
-		Debug.Log("tile is null");
+		Debug.Log("TileCollisionEffect.OnCollisionEnter() tile is null");
 		return; 
 	    }
 
-	    var playerController = collision.collider.gameObject.GetComponent<PlayerController>();
+	    var playerController = collider.gameObject.GetComponent<PlayerController>();
+	    if(playerController == null)
+	    {
+		Debug.Log("TileCollisionEffect.OnCollisionEnter() playerController is null");
+	    }
 	    if (_effectMap.TryGetValue(tile, out CollisionEvent effect) && effect != null)
+	    {
+		Debug.Log("TileCollisionEffect.OnCollisionEnter() found corresponding tile");
 		effect.Invoke(playerController);
+	    }
 	    else {
 		Debug.Log("TileCollisionEffect.OnCollisionEnter() cannot find corresponding tile");
 	    }
@@ -63,6 +116,10 @@ namespace Platformer.Mechanics {
 	}
 
 	public void Green(PlayerController pc) {
+	    if(pc == null)
+	    {
+		Debug.Log("TileCollisionEffect.Orange() pc is null");
+	    }
 	    pc.jump_coef_h =1.5f;
 	    Debug.Log("Green");
 	}

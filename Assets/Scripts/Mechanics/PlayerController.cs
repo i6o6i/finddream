@@ -1,7 +1,5 @@
 using Platformer.Model;
 using Platformer.Core;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Platformer.Mechanics {
@@ -21,6 +19,7 @@ namespace Platformer.Mechanics {
 	public float jump_coef_h=1;
 	public float jump_coef_w=1;
 	Vector2 move;
+	public Vector2 base_velocity;
 	public bool isStandonIce=false;
 	public enum JumpState
 	{
@@ -40,7 +39,7 @@ namespace Platformer.Mechanics {
 	internal TokenAssist TokAssist = null;
 	// Start is called before the first frame update
 
-	void OnEnable()
+	protected override void OnEnable()
 	{
 	    base.OnEnable();
 	    if(get_pos().y <= 57&&TokAssist == null)
@@ -77,6 +76,7 @@ namespace Platformer.Mechanics {
 		if(Input.GetKeyDown(jump_key))
 		{
 		    m_isheld =true;
+		    move.x=0;
 		}else if(Input.GetKeyUp(jump_key)) {
 		    m_isheld =false;
 		}
@@ -108,6 +108,13 @@ namespace Platformer.Mechanics {
 	{
 	    ground = collider2d.bounds.min.y;
 	}
+	void clearstate()
+	{
+	    jump_coef_h = 1;
+	    jump_coef_w = 1;
+	    isStandonIce = false;
+	    base_velocity = base_velocity*0;
+	}
 	void UpdateJumpState()
 	{
 	    //Debug.Log("PlayerController.UpdateJumpState() Time.deltaTime ="+Time.deltaTime);
@@ -136,7 +143,7 @@ namespace Platformer.Mechanics {
 			velocity.x +=velocity.x>0?-minus:minus;
 		    }else
 		    {
-			velocity.x = move.x * model.maxSpeed;
+			velocity.x = base_velocity.x+ move.x * model.maxSpeed;
 			animator.SetFloat("velocityX", Mathf.Abs(velocity.x));
 		    }
 		    if(m_isheld)
@@ -147,11 +154,8 @@ namespace Platformer.Mechanics {
 		    if(velocity.y<-0.01f)
 		    {
 			//离开平台自由落体时清空状态
-			jump_coef_h = 1;
-			jump_coef_w = 1;
-			isStandonIce = false;
+			clearstate();
 			m_jumpstate = JumpState.InFlight;
-			animator.SetBool("grounded",true);
 		    }
 		    break;
 		case JumpState.PrepareTojump:
@@ -178,9 +182,7 @@ namespace Platformer.Mechanics {
 		    IsGrounded = false;
 		    animator.SetBool("grounded",false);
 		    //开始跳跃时清空状态
-		    jump_coef_h = 1;
-		    jump_coef_w = 1;
-		    isStandonIce = false;
+		    clearstate();
 
 		    m_jumpstate = JumpState.InFlight;
 		    break;
