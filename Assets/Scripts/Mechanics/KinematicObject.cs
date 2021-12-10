@@ -19,7 +19,7 @@ namespace Platformer.Mechanics
         protected RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
 
         protected const float minMoveDistance = 0.001f;
-        protected const float shellRadius = 0.01f;
+        protected const float shellRadius = 0.02f;
 
         public void Teleport(Vector3 position)
         {
@@ -75,7 +75,7 @@ namespace Platformer.Mechanics
             //velocity.x = targetVelocity.x;
 	    //Debug.Log("KinematicObject.FixedUpdate()"+velocity);
 
-            IsGrounded = false;
+            //IsGrounded = false;
 
             var deltaPosition = velocity * Time.deltaTime;
 	    //Debug.Log("KinematicObject.FixedUpdate() Time.deltaTime = "+Time.deltaTime);
@@ -136,9 +136,11 @@ namespace Platformer.Mechanics
 			    );
 		    //hitBuffer[i].collider.gameObject.GetComponent<MonoBehaviour>().OnTriggerEnter2D(collider2d);
                     distance = modifiedDistance < distance ? modifiedDistance : distance;
+		    /*
 		    Debug.Log("KinematicObject.PerformMovement()"
 			    +" distance = "+distance
 			    );
+			*/
                 }
             }else
 	    {

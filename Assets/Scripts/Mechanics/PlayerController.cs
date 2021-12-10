@@ -19,7 +19,7 @@ namespace Platformer.Mechanics {
 	public float jump_coef_h=1;
 	public float jump_coef_w=1;
 	Vector2 move;
-	public Vector2 base_velocity;
+	//public Vector2 base_velocity;
 	public bool isStandonIce=false;
 	public enum JumpState
 	{
@@ -108,12 +108,12 @@ namespace Platformer.Mechanics {
 	{
 	    ground = collider2d.bounds.min.y;
 	}
-	void clearstate()
+
+	public void clearstate()
 	{
 	    jump_coef_h = 1;
 	    jump_coef_w = 1;
 	    isStandonIce = false;
-	    base_velocity = base_velocity*0;
 	}
 	void UpdateJumpState()
 	{
@@ -143,20 +143,29 @@ namespace Platformer.Mechanics {
 			velocity.x +=velocity.x>0?-minus:minus;
 		    }else
 		    {
-			velocity.x = base_velocity.x+ move.x * model.maxSpeed;
-			animator.SetFloat("velocityX", Mathf.Abs(velocity.x));
+			velocity.x = GetComponent<MovingWithPlat>().velocity.x+ move.x * model.maxSpeed;
+			animator.SetFloat("velocityX", Mathf.Abs(move.x*model.maxSpeed));
 		    }
 		    if(m_isheld)
 		    {
-			//Debug.Log("PlayerController.UpdateJumpState() JumpState.PrepareTojump m_jumpstate change to PrepareTojump");
+			Debug.Log("PlayerController.UpdateJumpState() JumpState.PrepareTojump m_jumpstate change to PrepareTojump");
 			m_jumpstate = JumpState.PrepareTojump;
 		    }
 		    if(velocity.y<-0.01f)
 		    {
 			//离开平台自由落体时清空状态
 			clearstate();
+			IsGrounded = false;
 			m_jumpstate = JumpState.InFlight;
 		    }
+
+		    /*
+		    Debug.Log("PlayerController.UpdateJumpState()"
+			    +" m_jumpstate = "+m_jumpstate+""
+			    +" velocity = "+velocity
+			    );
+		    */
+
 		    break;
 		case JumpState.PrepareTojump:
 		    //Debug.Log("PlayerController.UpdateJumpState() JumpState.PrepareTojump m_isheld = "+m_isheld);
@@ -182,7 +191,6 @@ namespace Platformer.Mechanics {
 		    IsGrounded = false;
 		    animator.SetBool("grounded",false);
 		    //开始跳跃时清空状态
-		    clearstate();
 
 		    m_jumpstate = JumpState.InFlight;
 		    break;

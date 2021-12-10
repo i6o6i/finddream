@@ -49,14 +49,16 @@ namespace Platformer.Mechanics {
 	    line_render.material =  new Material(Shader.Find("Sprites/Default"));
 	}
 
-	private void OnCollisionEnter2D(Collision2D collision) {
+	private void OnCollisionStay2D(Collision2D collision) {
 	    var points=new ContactPoint2D[100];
 	    var collider = collision.collider;
 	    int contact_point_num = collider.GetContacts(points);
+	    /*
 	    Debug.Log("TileCollisionEffect.OnCollisionEnter()"
 		    +" contact.normal = "+points[0].normal
 		    +" contact.points.Count = "+contact_point_num
 		    );
+	    */
 	    if(points[0].normal.y < 0) //和KinematicObject的minGroundNormal一致，玩家碰撞到方块的矢量，落地时为负值
 	    {
 		Debug.Log("TileCollisionEffect.OnCollisionEnter() contact_points[0].normal.y <= -.65f");
@@ -89,24 +91,27 @@ namespace Platformer.Mechanics {
 
 	    var tile = map.GetTile(cell);
 
+	    var playerController = collider.gameObject.GetComponent<PlayerController>();
+	    if(playerController == null)
+	    {
+		Debug.Log("TileCollisionEffect.OnCollisionEnter() playerController is null");
+		return;
+	    }
+
 	    if(tile == null)
 	    {
 		Debug.Log("TileCollisionEffect.OnCollisionEnter() tile is null");
 		return; 
 	    }
 
-	    var playerController = collider.gameObject.GetComponent<PlayerController>();
-	    if(playerController == null)
-	    {
-		Debug.Log("TileCollisionEffect.OnCollisionEnter() playerController is null");
-	    }
 	    if (_effectMap.TryGetValue(tile, out CollisionEvent effect) && effect != null)
 	    {
 		Debug.Log("TileCollisionEffect.OnCollisionEnter() found corresponding tile");
 		effect.Invoke(playerController);
 	    }
 	    else {
-		Debug.Log("TileCollisionEffect.OnCollisionEnter() cannot find corresponding tile");
+		playerController.clearstate();
+		//Debug.Log("TileCollisionEffect.OnCollisionEnter() cannot find corresponding tile");
 	    }
 	}
 
