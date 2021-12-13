@@ -19,7 +19,7 @@ namespace Platformer.Mechanics
         protected RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
 
         protected const float minMoveDistance = 0.001f;
-        protected const float shellRadius = 0.02f;
+        protected const float shellRadius = 0.01f;
 
         public void Teleport(Vector3 position)
         {
@@ -122,25 +122,40 @@ namespace Platformer.Mechanics
                     }
                     else
                     {
-			//Debug.Log("KinematicObject.PerformMovement() branch IsGrounded == false"+velocity);
-			var projection=Vector2.Dot(velocity,currentNormal);
-			velocity = velocity - 2*projection*currentNormal;
+			var rigidbody = hitBuffer[i].collider.gameObject.GetComponent<Rigidbody2D>();
+			Debug.Log("KinematicObject.PerformMovement() branch IsGrounded == false"
+				+"velocity = " + velocity
+				+"rigidbody.velocity" + rigidbody.velocity
+				+"currentNormal = "+currentNormal
+				+"rigidbody.velocity = "+rigidbody.velocity
+				);
+			if(rigidbody.velocity != Vector2.zero && Vector2.Dot(currentNormal,rigidbody.velocity)!=0)
+			{
+			    velocity = 2*rigidbody.velocity +velocity;
+			}else
+			{
+			    var projection=Vector2.Dot(velocity,currentNormal);
+			    velocity = velocity - 2*projection*currentNormal;
+			}
                     }
-                    var modifiedDistance = hitBuffer[i].distance - shellRadius;
-		    Debug.Log("KinematicObject.PerformMovement()"
-			    +" modifiedDistance = "+modifiedDistance
-			    +" distance = "+distance
-			    +" hitBuffer[i].distance = "+hitBuffer[i].distance
-			    +" velocity = "+velocity
-			    +" move.normalized = "+move.normalized
-			    );
-		    //hitBuffer[i].collider.gameObject.GetComponent<MonoBehaviour>().OnTriggerEnter2D(collider2d);
-                    distance = modifiedDistance < distance ? modifiedDistance : distance;
-		    /*
-		    Debug.Log("KinematicObject.PerformMovement()"
-			    +" distance = "+distance
-			    );
-			*/
+		    if(hitBuffer[i].distance !=0)
+		    {
+			var modifiedDistance = hitBuffer[i].distance - shellRadius;
+			Debug.Log("KinematicObject.PerformMovement()"
+				+" modifiedDistance = "+modifiedDistance
+				+" distance = "+distance
+				+" hitBuffer[i].distance = "+hitBuffer[i].distance
+				+" velocity = "+velocity
+				+" move.normalized = "+move.normalized
+				);
+			//hitBuffer[i].collider.gameObject.GetComponent<MonoBehaviour>().OnTriggerEnter2D(collider2d);
+			distance = modifiedDistance < distance ? modifiedDistance : distance;
+			/*
+			Debug.Log("KinematicObject.PerformMovement()"
+				+" distance = "+distance
+				);
+			    */
+		    }
                 }
             }else
 	    {

@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour
     float m_viewpositionx,m_viewpositiony, m_viewwidth, m_viewheight;
     public Camera m_OrthographicCamera;
     readonly int blockcnt=Instance<PlatformerModel>.get().blockcnt;
-    private PlayerController m_pc;
+    public PlayerController m_pc;
     private float aspect;
     private float size;
     public float frameRate=12;

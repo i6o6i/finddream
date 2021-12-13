@@ -28,5 +28,6 @@ namespace Platformer.Model
 	public KeyCode player2moveright = KeyCode.RightArrow;
 	public KeyCode player2assistKeyCode = KeyCode.Keypad1;
 	public KeyCode player2teleportKeyCode = KeyCode.Keypad2;
+	public bool IsMultiplayer ;
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using Platformer.Model;
+using Platformer.Core;
 
 namespace Platformer.Mechanics
 {
@@ -30,7 +31,7 @@ namespace Platformer.Mechanics
 	    {
 		SceneData.PlayerName = "";
 	    }
-	    SceneData.IsMultiplayer = IsMultiplayer;
+	    SceneData.IsMultiplayer = Instance<PlatformerModel>.get().IsMultiplayer;
 	    SceneManager.LoadScene(m_SceneName);
 	}
     }

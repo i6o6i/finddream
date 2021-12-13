@@ -9,6 +9,7 @@ namespace Platformer.Mechanics
     {
 	internal Vector3 velocity;
 	internal List<MovingWithPlat> moves;
+	private Rigidbody2D body;
 	internal int idx;
 
 	void OnEnable()
@@ -18,6 +19,7 @@ namespace Platformer.Mechanics
 	}
 	void Awake()
 	{
+	    body =  GetComponent<Rigidbody2D>();
 	    velocity = Instance<PlatformerModel>.get().MovedPlatSpeed * Vector3.right;
 	}
 	void DrawCross(Vector3 center)
@@ -39,9 +41,10 @@ namespace Platformer.Mechanics
 	    line_render.endWidth = 0.02f;
 	    line_render.material =  new Material(Shader.Find("Sprites/Default"));
 	}
-	public void Update()
+	public void FixedUpdate()
 	{
-	    transform.Translate((Vector3)velocity*Time.deltaTime,Space.Self);
+	    body.velocity = velocity;
+	    //transform.Translate((Vector3)velocity*Time.deltaTime,Space.Self);
 	}
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
@@ -60,7 +63,7 @@ namespace Platformer.Mechanics
 		var playerController = collider.gameObject.GetComponent<PlayerController>();
 		var points = new ContactPoint2D[2];
 		int contact_point_num = collider.GetContacts(points);
-		DrawCross(points[0].point);
+		//DrawCross(points[0].point);
 		Debug.Log("MovedPlat.OnTriggerEnter2D()"
 			+" contact.normal = "+points[0].normal
 			+" contact.points.Count = "+contact_point_num

@@ -53,15 +53,13 @@ namespace Platformer.Mechanics {
 	    var points=new ContactPoint2D[100];
 	    var collider = collision.collider;
 	    int contact_point_num = collider.GetContacts(points);
-	    /*
-	    Debug.Log("TileCollisionEffect.OnCollisionEnter()"
+	    Debug.Log("TileCollisionEffect.OnCollisionStay2D()"
 		    +" contact.normal = "+points[0].normal
 		    +" contact.points.Count = "+contact_point_num
 		    );
-	    */
 	    if(points[0].normal.y < 0) //和KinematicObject的minGroundNormal一致，玩家碰撞到方块的矢量，落地时为负值
 	    {
-		Debug.Log("TileCollisionEffect.OnCollisionEnter() contact_points[0].normal.y <= -.65f");
+		Debug.Log("TileCollisionEffect.OnCollisionStay2D() contact_points[0].normal.y <= -.65f");
 		return;
 	    }
 
@@ -71,7 +69,7 @@ namespace Platformer.Mechanics {
 	    var tileWorldPos = points[1].point;
 	    Vector3 localPosition = grid.transform.InverseTransformPoint(tileWorldPos);
 	    /*
-	    Debug.Log("TileCollisionEffect.OnCollisionEnter()"
+	    Debug.Log("TileCollisionEffect.OnCollisionStay2D()"
 		    +" contact.point = "+points[0].point
 		    +" localPosition = "+localPosition
 		    );
@@ -80,38 +78,38 @@ namespace Platformer.Mechanics {
 	    Vector3Int cell = grid.LocalToCell(localPosition);
 
 	    /*
-	    Debug.Log("TileCollisionEffect.OnCollisionEnter()"
+	    Debug.Log("TileCollisionEffect.OnCollisionStay2D()"
 		    +" contact.point = "+points[0].point
 		    +" localPosition = "+localPosition
 		);
 		*/
-	    DrawCross(points[1].point);
-	    Vector3 WorldPos = grid.transform.TransformPoint(localPosition);
-	    DrawCross(WorldPos);
+	    //DrawCross(points[1].point);
+	    //Vector3 WorldPos = grid.transform.TransformPoint(localPosition);
+	    //DrawCross(WorldPos);
 
 	    var tile = map.GetTile(cell);
 
 	    var playerController = collider.gameObject.GetComponent<PlayerController>();
 	    if(playerController == null)
 	    {
-		Debug.Log("TileCollisionEffect.OnCollisionEnter() playerController is null");
+		Debug.Log("TileCollisionEffect.OnCollisionStay2D() playerController is null");
 		return;
 	    }
 
 	    if(tile == null)
 	    {
-		Debug.Log("TileCollisionEffect.OnCollisionEnter() tile is null");
+		Debug.Log("TileCollisionEffect.OnCollisionStay2D() tile is null");
 		return; 
 	    }
 
 	    if (_effectMap.TryGetValue(tile, out CollisionEvent effect) && effect != null)
 	    {
-		Debug.Log("TileCollisionEffect.OnCollisionEnter() found corresponding tile");
+		Debug.Log("TileCollisionEffect.OnCollisionStay2D() found corresponding tile");
 		effect.Invoke(playerController);
 	    }
 	    else {
 		playerController.clearstate();
-		//Debug.Log("TileCollisionEffect.OnCollisionEnter() cannot find corresponding tile");
+		//Debug.Log("TileCollisionEffect.OnCollisionStay2D() cannot find corresponding tile");
 	    }
 	}
 
