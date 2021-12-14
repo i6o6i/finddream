@@ -9,33 +9,37 @@ namespace Platformer.Mechanics
 {
     public class CountDown :MonoBehaviour
     {
-	private TimeSpan  time = new TimeSpan(0,2,0);
+	private DateTime start_time ;
+	private TimeSpan  maxtime = new TimeSpan(0,10,0);
 	private TimeSpan OneSec = new TimeSpan(0,0,1);
 	public string m_SceneName;
 	private TextMeshProUGUI mText;
 	private string format = @"mm\:ss";
 
+	void Start()
+	{
+	    start_time = DateTime.Now;
+	}
 	void Awake()
 	{
 	    mText = GetComponent<TextMeshProUGUI>();
 	}
 	void Update()
 	{
-	    var deltaTimeSpan = TimeSpan.FromTicks((long)(Time.deltaTime* TimeSpan.TicksPerSecond));
+	    var timespan = DateTime.Now - start_time;
 
 	    /*
 	    Debug.Log("CountDown.Update()"
 		    +"deltaTimeSpan = "+deltaTimeSpan.Ticks
 		    );
 		    */
-	    time = time - deltaTimeSpan;
-	    if(TimeSpan.Compare(time,TimeSpan.Zero)<=0)
+	    if(TimeSpan.Compare(timespan,maxtime)>=0)
 	    {
 		SceneData.IsMultiplayer = Instance<PlatformerModel>.get().IsMultiplayer;
 		SceneManager.LoadScene(m_SceneName);
 	    }else
 	    {
-		mText.text = time.ToString(format);
+		mText.text = timespan.ToString(format);
 	    }
 	}
     }
