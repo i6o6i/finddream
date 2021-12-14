@@ -138,24 +138,21 @@ namespace Platformer.Mechanics
 			    velocity = velocity - 2*projection*currentNormal;
 			}
                     }
-		    if(hitBuffer[i].distance !=0)
-		    {
-			var modifiedDistance = hitBuffer[i].distance - shellRadius;
-			Debug.Log("KinematicObject.PerformMovement()"
-				+" modifiedDistance = "+modifiedDistance
-				+" distance = "+distance
-				+" hitBuffer[i].distance = "+hitBuffer[i].distance
-				+" velocity = "+velocity
-				+" move.normalized = "+move.normalized
-				);
-			//hitBuffer[i].collider.gameObject.GetComponent<MonoBehaviour>().OnTriggerEnter2D(collider2d);
-			distance = modifiedDistance < distance ? modifiedDistance : distance;
-			/*
-			Debug.Log("KinematicObject.PerformMovement()"
-				+" distance = "+distance
-				);
-			    */
-		    }
+		    var modifiedDistance = hitBuffer[i].distance - shellRadius;
+		    Debug.Log("KinematicObject.PerformMovement()"
+			    +" modifiedDistance = "+modifiedDistance
+			    +" distance = "+distance
+			    +" hitBuffer[i].distance = "+hitBuffer[i].distance
+			    +" velocity = "+velocity
+			    +" move.normalized = "+move.normalized
+			    );
+		    //hitBuffer[i].collider.gameObject.GetComponent<MonoBehaviour>().OnTriggerEnter2D(collider2d);
+		    distance = modifiedDistance < distance ? modifiedDistance : distance;
+		    /*
+		    Debug.Log("KinematicObject.PerformMovement()"
+			    +" distance = "+distance
+			    );
+			*/
                 }
             }else
 	    {
