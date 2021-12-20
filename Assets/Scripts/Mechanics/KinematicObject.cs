@@ -131,9 +131,11 @@ namespace Platformer.Mechanics
 				);
 			if(rigidbody.velocity != Vector2.zero && Vector2.Dot(currentNormal,rigidbody.velocity)!=0)
 			{
+			    Debug.Log("KinematicObject.PerformMovement() Collide with none zero velocity rigidbody");
 			    velocity = 2*rigidbody.velocity +velocity;
 			}else
 			{
+			    Debug.Log("KinematicObject.PerformMovement() Collide with zero velocity rigidbody");
 			    var projection=Vector2.Dot(velocity,currentNormal);
 			    velocity = velocity - 2*projection*currentNormal;
 			}
